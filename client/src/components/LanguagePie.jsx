@@ -1,0 +1,7 @@
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
+const colors = ['#55e6c1', '#69a9ff', '#b69cff', '#ffb86b', '#ff7d9d', '#70d7e8'];
+export default function LanguagePie({ languages }) {
+  return <section className="panel p-5"><h2 className="section-title">Language mix</h2><p className="section-subtitle">Repository code by language</p>
+    {languages.length ? <div className="mt-3 flex flex-wrap items-center gap-2"><div className="h-52 w-52 min-w-[180px] flex-1"><ResponsiveContainer width="100%" height="100%"><PieChart><Pie data={languages} dataKey="percent" nameKey="language" innerRadius={55} outerRadius={82} paddingAngle={3}>{languages.map((entry, index) => <Cell key={entry.language} fill={colors[index % colors.length]} stroke="transparent" />)}</Pie><Tooltip formatter={(value) => [`${value}%`, 'Share']} contentStyle={{ background: '#101827', border: '1px solid #263248', borderRadius: 12 }} /></PieChart></ResponsiveContainer></div><div className="flex-1 space-y-3">{languages.slice(0, 6).map((item, index)=><div className="flex items-center justify-between gap-5 text-sm" key={item.language}><span className="flex items-center gap-2 text-slate-300"><i className="h-2.5 w-2.5 rounded-full" style={{ background: colors[index % colors.length] }} />{item.language}</span><span className="text-slate-500">{item.percent}%</span></div>)}</div></div> : <p className="empty-note mt-5">Language statistics will appear once repositories are available.</p>}
+  </section>;
+}
